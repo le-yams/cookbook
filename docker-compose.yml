@@ -1,0 +1,8 @@
+services:
+  cook-server:
+    build: docker/cook-server
+    ports:
+      - "9080:9080"
+    volumes:
+      - ./recipes:/recipes
+    restart: unless-stopped
