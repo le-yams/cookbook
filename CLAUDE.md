@@ -35,6 +35,8 @@ Le serveur web CookCLI tourne dans un container Docker sur le réseau local.
 - **Sections** : `= Nom de section`
 - **Notes** : `> texte`
 
+Spec complète dans `docs/cooklang-spec.md` et `docs/cooklang-ecosystem.md`.
+
 ## Conventions du projet
 
 - **Langue** : recettes en français, metadata `locale: fr`
@@ -42,4 +44,3 @@ Le serveur web CookCLI tourne dans un container Docker sur le réseau local.
   - `cs` = cuillère à soupe, `cc` = cuillère à café
 - **Fichiers** : nommer les fichiers `.cook` avec le nom de la recette en casse naturelle (ex: `Poulet rôti.cook`)
 - **Images** : placer à côté du `.cook` avec le même nom (ex: `Poulet rôti.jpg`)
-- **Spec complète** : consulter `docs/cooklang-spec.md` et `docs/cooklang-ecosystem.md`
