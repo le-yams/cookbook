@@ -34,8 +34,44 @@ Le serveur web CookCLI tourne dans un container Docker sur le réseau local.
 - **Commentaires** : `-- ligne` ou `[- bloc -]`
 - **Sections** : `= Nom de section`
 - **Notes** : `> texte`
+- **Référence de recette** : `@./chemin/Recette{facteur}` -- ex: `@./Sauce barbecue{1}`
 
 Spec complète dans `docs/cooklang-spec.md` et `docs/cooklang-ecosystem.md`.
+
+## Balisage des ingrédients
+
+Ne marquer en `@` que les **composants réels de la recette**. Deux exclusions :
+
+- **L'aliment support**, la pièce sur laquelle la recette s'applique. Dans un rub,
+  une marinade ou une sauce, écrire « la viande » en texte brut, jamais
+  `@viande{1%kg}` : dès que la recette est référencée depuis une autre, l'aliment
+  ressort en doublon dans la liste de courses du parent (`travers de porc 2 kg`
+  **et** `viande 2 kg`). Le poids de référence se porte dans `description`, une
+  note `>` et `servings`.
+- **Les ingrédients conditionnels** : « 1 cs d'eau si trop épais », un jus de
+  cuisson « si disponible ». En texte brut, pour ne pas polluer la liste de courses.
+
+Il n'existe aucun moyen de masquer un ingrédient : les modificateurs
+`@-caché{}` et `@?optionnel{}` sont des extensions cooklang-rs **désactivées**
+dans ce build -- les caractères `-` et `?` ressortent littéralement dans la liste
+de courses. Ne pas les utiliser.
+
+## Références entre recettes
+
+Une recette se référence avec `@./Nom de la recette{facteur}`, un ingrédient dont
+le nom est un chemin relatif sans l'extension `.cook` :
+
+```cooklang
+Préparer le @./Rub barbecue{1} et l'appliquer sur les @travers de porc{1%kg}.
+```
+
+- `cook shopping-list` **déplie récursivement** les ingrédients de la recette
+  référencée et les agrège à ceux de la recette parente.
+- Les accolades portent un **facteur d'échelle**, pas une quantité : `{2}` double
+  toutes les quantités scalables de la recette référencée. Variantes documentées
+  pour les `.menu` : `{4%servings}`, `{%units}`.
+- Sur une recette-composant, caler `servings` sur l'unité de référence
+  (`servings: 1` = pour 1 kg de viande) pour que le facteur du parent ait un sens.
 
 ## Conventions du projet
 
