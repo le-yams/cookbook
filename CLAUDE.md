@@ -56,6 +56,20 @@ Il n'existe aucun moyen de masquer un ingrédient : les modificateurs
 dans ce build -- les caractères `-` et `?` ressortent littéralement dans la liste
 de courses. Ne pas les utiliser.
 
+**Alternatives et substitutions** : les écrire dans la note de préparation, après
+les accolades, jamais dans le nom.
+
+```cooklang
+@vin rosé{20%cl}(ou blanc sec)      -- oui
+@vin rosé (ou blanc sec){20%cl}     -- non
+```
+
+Un nom qui embarque l'alternative devient un ingrédient distinct : il ne fusionne
+plus avec le même ingrédient venu d'une autre recette (même piège que les unités
+au pluriel). À savoir : la note ne ressort pas dans `cook shopping-list`, qui
+n'affiche que le nom et la quantité -- l'alternative reste visible dans la recette
+et dans l'UI web.
+
 ## Références entre recettes
 
 Une recette se référence avec `@./Nom de la recette{facteur}`, un ingrédient dont
