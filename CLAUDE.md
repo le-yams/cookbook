@@ -78,5 +78,10 @@ Préparer le @./Rub barbecue{1} et l'appliquer sur les @travers de porc{1%kg}.
 - **Langue** : recettes en français, metadata `locale: fr`
 - **Unités** : système métrique (g, kg, ml, l, cl, cs, cc)
   - `cs` = cuillère à soupe, `cc` = cuillère à café
+  - **Unités de comptage** : écrire la forme `gousse(s)`, `feuille(s)`, `branche(s)`,
+    `tranche(s)`, `pincée(s)`. L'agrégation de la liste de courses compare les unités
+    comme des chaînes brutes : `3 gousses` et `1 gousse` sortent en deux lignes, alors
+    que la forme parenthésée unique fusionne en `4 gousse(s)`. Les unités métriques,
+    elles, se convertissent d'elles-mêmes (`500 ml` + `500 ml` = `1 l`).
 - **Fichiers** : nommer les fichiers `.cook` avec le nom de la recette en casse naturelle (ex: `Poulet rôti.cook`)
 - **Images** : placer à côté du `.cook` avec le même nom (ex: `Poulet rôti.jpg`)
