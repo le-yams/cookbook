@@ -87,6 +87,22 @@ Préparer le @./Rub barbecue{1} et l'appliquer sur les @travers de porc{1%kg}.
 - Sur une recette-composant, caler `servings` sur l'unité de référence
   (`servings: 1` = pour 1 kg de viande) pour que le facteur du parent ait un sens.
 
+## Vérification avec la CLI `cook`
+
+**Toute recette créée ou modifiée doit être validée avant de la présenter comme
+terminée**, sans attendre qu'on le demande : `cook recipe` sur le fichier, puis
+`cook doctor` pour toute la collection. Corriger les erreurs et relire le rendu
+(un nom d'ingrédient peut donner une phrase bancale, ex. « avec la sel »).
+
+Les références `@./Recette` sont résolues depuis le **répertoire de base** de la
+CLI, qui vaut par défaut le répertoire courant. Lancée depuis la racine du dépôt,
+elle cherche `./Rub barbecue.cook` au lieu de `recipes/Rub barbecue.cook` et
+signale à tort des références manquantes (le serveur web, lui, a `recipes/` pour base).
+
+- `cook doctor` : à lancer **depuis `recipes/`** (pas d'option pour changer de base).
+- `cook shopping-list` : `-b recipes` depuis la racine, ex. `cook shopping-list -b recipes -p "Poitrine de porc fondante laquée BBQ.cook"`.
+- `cook recipe <fichier>` : valide la syntaxe d'un fichier, depuis n'importe où.
+
 ## Conventions du projet
 
 - **Langue** : recettes en français, metadata `locale: fr`
