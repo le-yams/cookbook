@@ -1,6 +1,7 @@
 services:
   cook-server:
     build: docker/cook-server
+    container_name: cookserver
     ports:
       - "9080:9080"
     volumes:
