@@ -102,16 +102,30 @@ signale à tort des références manquantes (le serveur web, lui, a `recipes/` p
 - `cook doctor` : à lancer **depuis `recipes/`** (pas d'option pour changer de base).
 - `cook shopping-list` : `-b recipes` depuis la racine, ex. `cook shopping-list -b recipes -p "Poitrine de porc fondante laquée BBQ.cook"`.
 - `cook recipe <fichier>` : valide la syntaxe d'un fichier, depuis n'importe où.
+- Unités éclatées : depuis la racine, la commande ci-dessous liste les ingrédients
+  que la liste de courses de toute la collection sort sur plusieurs unités.
+  `ml`/`cl`/`l`, `g`/`kg` ou `x`/`x(s)` sur une même ligne sont à harmoniser (voir
+  Conventions). `cs` + `cc`, ou une forme fraîche et une forme sèche (`thym` en
+  `branche(s)` et en `cs`), sont acceptables.
+
+  ```bash
+  find recipes -name "*.cook" -printf "%P\0" | xargs -0 cook shopping-list -b recipes 2>/dev/null | grep ","
+  ```
 
 ## Conventions du projet
 
 - **Langue** : recettes en français, metadata `locale: fr`
 - **Unités** : système métrique (g, kg, ml, l, cl, cs, cc)
   - `cs` = cuillère à soupe, `cc` = cuillère à café
+  - **Agrégation de la liste de courses** : les unités sont comparées comme des chaînes
+    brutes, et seules les quantités de **même unité** s'additionnent. CookCLI ne
+    convertit plus rien depuis la 0.34.0, même entre unités métriques : `500 ml` +
+    `500 ml` donne `1000 ml` (pas `1 l`), et `50 cl` + `250 ml` sort en deux lignes.
+  - **Une seule unité métrique par ingrédient dans toute la collection** : avant
+    d'écrire une quantité, chercher l'unité déjà utilisée pour cet ingrédient dans les
+    autres recettes et la reprendre (ex. `bouillon de volaille` en `cl`).
   - **Unités de comptage** : écrire la forme `gousse(s)`, `feuille(s)`, `branche(s)`,
-    `tranche(s)`, `pincée(s)`. L'agrégation de la liste de courses compare les unités
-    comme des chaînes brutes : `3 gousses` et `1 gousse` sortent en deux lignes, alors
-    que la forme parenthésée unique fusionne en `4 gousse(s)`. Les unités métriques,
-    elles, se convertissent d'elles-mêmes (`500 ml` + `500 ml` = `1 l`).
+    `tranche(s)`, `pincée(s)`. `3 gousses` et `1 gousse` sortent en deux lignes, alors
+    que la forme parenthésée unique fusionne en `4 gousse(s)`.
 - **Fichiers** : nommer les fichiers `.cook` avec le nom de la recette en casse naturelle (ex: `Poulet rôti.cook`)
 - **Images** : placer à côté du `.cook` avec le même nom (ex: `Poulet rôti.jpg`)
