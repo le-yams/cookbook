@@ -4,6 +4,8 @@ services:
     container_name: cookserver
     ports:
       - "9080:9080"
+    environment:
+      COOK_RECIPES_ONLY: "1"
     volumes:
       - ./recipes:/recipes
     restart: unless-stopped

@@ -20,7 +20,8 @@ Le serveur web CookCLI tourne dans un container Docker sur le réseau local.
 - `docker compose up -d` pour démarrer
 - Le répertoire `recipes/` est monté directement dans le container
 - Port : 9080
-- L'UI web permet de consulter et modifier les recettes
+- L'UI web est en lecture seule (`COOK_RECIPES_ONLY`) : recettes et menus uniquement,
+  sans éditeur, liste de courses ni garde-manger. Les recettes se modifient dans le dépôt
 - Synchronisation git manuelle (`git pull` / `git add` + `commit` + `push`)
 
 ## Cooklang Quick Reference
