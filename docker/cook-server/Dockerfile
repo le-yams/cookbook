@@ -1,6 +1,6 @@
 FROM alpine:3.21
 
-ARG COOKCLI_VERSION=0.37.0
+ARG COOKCLI_VERSION=0.38.1
 
 RUN apk add --no-cache curl \
     && curl -fsSL "https://github.com/cooklang/cookcli/releases/download/v${COOKCLI_VERSION}/cook-x86_64-unknown-linux-musl.tar.gz" \
